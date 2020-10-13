@@ -14,12 +14,18 @@ BATCH_SIZE = 8
 
 
 def check(TEST_PATH, WEIGHT_PATH, delete=False):
+	const = set(list("ABCDEF1234567890"))
+
+	# Check directory
 	if not os.path.exists(TEST_PATH):
 		return False, False
+	# Check weight path
 	if not os.path.exists(WEIGHT_PATH):
 		return True, False
 	images_list = glob.glob1(TEST_PATH, "?????.png")
 	file_list = os.listdir(TEST_PATH)
+
+	# Check files extension and lenght files
 	if len(images_list) != len(file_list):
 		files = set(file_list) - set(images_list)
 		if delete:
@@ -30,6 +36,17 @@ def check(TEST_PATH, WEIGHT_PATH, delete=False):
 			for file in files:
 				print('{}'.format(file))
 			return False, True
+
+	# Check symbols
+	for file in images_list:
+		flag = False
+		for c in file.split('.')[0].upper():
+			if c not in const:
+				flag = True
+		if flag:
+			os.remove(os.path.join(TEST_PATH, file))
+			print('file {} has been remove'.format(file))
+
 	return True, True
 
 
@@ -66,11 +83,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--path", required=True, type=str, help="Folder with test samples")
     parser.add_argument("--weight_name", default='weight.pt', type=str, help="Name of weight.pt")
-    parser.add_argument("--delete", default=False, type=bool, help="Delete not valid files")
+    parser.add_argument("--delete", default='n', type=str, help="Delete not valid files")
     args = parser.parse_args()
     TEST_PATH = os.path.join(ROOT, args.path)
     WEIGHT_PATH = os.path.join(ROOT, args.weight_name)
-    delete = args.delete
+    delete = True if args.delete == 'y' else False
     p, w = check(TEST_PATH, WEIGHT_PATH, delete)
     if p and w:
         main(TEST_PATH, WEIGHT_PATH)
