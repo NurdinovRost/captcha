@@ -1,0 +1,13 @@
+Goal: 
+train a captcha-solving model. any framework will work, pytorch is preferable
+data annotation might be noisy, you should take this into account during training and evaluation
+
+Metric: 
+per-sample accuracy (percentage of samples, where all the characters match ground truth)
+
+Output: 
+1) per-sample accuracy estimate on provided test set
+2) trained model weights
+3) code for inference and metric measurement on private test set (dockerized version will get you extra points)
+
+If you have any questions - feel free to reach out to alexey.rozhkov@mati.io

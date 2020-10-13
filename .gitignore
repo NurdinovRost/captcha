@@ -1,0 +1,14 @@
+# MacOS  files
+.DS_store
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.ipynb_checkpoints
+
+# Distribution / packaging
+venv/
+
+# Data
+train/
+test/
+*.zip
