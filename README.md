@@ -22,5 +22,5 @@
 # Dockerfile
   ```
   docker build -t mati-test .
-  docker run -t mati-test --path work --weight_name weight.pt --d False
+  docker run -t mati-test --path PATH_TEST_FOLDER --weight_name WEIGHT_NAME --d False
   ```
